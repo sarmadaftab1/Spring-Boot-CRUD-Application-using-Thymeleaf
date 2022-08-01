@@ -3,6 +3,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Customer;
 import com.example.demo.service.CustomerService;
+import com.example.demo.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,8 @@ import java.util.List;
 public class Controller {
     @Autowired
     private CustomerService customerService;
+    @Autowired
+    private UserServiceImpl userService;
 
     @RequestMapping("/")
     public ModelAndView ShowPage(){
@@ -23,10 +26,11 @@ public class Controller {
         return mod;
     }
 
+
     @GetMapping("/customer1")
     public String showlist(Model model){
-        List<Customer> customerDTOList= customerService.getAllCustomerSalman();
-        model.addAttribute("listcustomer", customerDTOList);
+        List<Customer> customerList= customerService.getAllCustomerSalman();
+        model.addAttribute("listcustomer", customerList);
         return "main";
     }
 
@@ -68,7 +72,7 @@ public class Controller {
     @RequestMapping("/delete/{cust_id}")
     public String delete(@PathVariable("cust_id") long cust_id, RedirectAttributes attributes){
         customerService.deleteCustomer(cust_id);
-        attributes.addFlashAttribute("success", "The student has deleted!");
+        attributes.addFlashAttribute("success", "The customer has deleted!");
         return "redirect:/customer1";
     }
 }

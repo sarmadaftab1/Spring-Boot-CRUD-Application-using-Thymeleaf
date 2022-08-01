@@ -1,13 +1,28 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
     <script src="http:localhost:37529/liverload.js"></script>
     <title>CRUD Web Application</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
 </head>
 <body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<br>
+<br><br>
 <div class="container fluid text-center">
     <p><br></p>
     <div class="m-2"><h2>Customers</h2></div>
@@ -16,8 +31,10 @@
     </div>
 
     <div>
+        <br>
         <a th:href="@{/customer1/post}" class="btn btn-info " >Add</a>
-        <a th:href="@{/customer1/search}" class="btn btn-info ">Search</a>
+        <a th:href="@{/customer1/search}" class="btn btn-info ">Search</a> <br> <br>
+
         <table class="table table-bordered border-2">
             <thead class="bg-black text-white">
             <tr>

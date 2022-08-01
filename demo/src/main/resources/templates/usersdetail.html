@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+  <meta charset="UTF-8">
+  <title>CRUD Web Application</title>
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div id="navbar" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<br>
+<br><br>
+<div class="container fluid text-center">
+  <p><br></p>
+  <div class="m-2"><h2>Users</h2></div>
+  <div th:if="${message}" class="alert alert-success text-center">
+    [[${message}]]
+  </div>
+
+  <div>
+    <br>
+    <a th:href="@{/registration}" class="btn btn-info " >Add</a>
+    <a th:href="@{/user/search}" class="btn btn-info ">Search</a> <br> <br>
+
+    <table class="table table-bordered border-2">
+      <thead class="bg-black text-white">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <th:block th:each="user: ${listuser}">
+        <tr class="bg-light">
+          <td>
+            [[${user.id}]]
+          </td>
+          <td>
+            [[${user.name}]]
+          </td>
+          <td>
+            [[${user.email}]]
+          </td>
+          <td>
+            <a th:href="@{/deleteuser/{id}(id=${user.id})}" class=" btn btn-info " onclick="return confirm('Are you sure you want to delete this User')" >Delete</a>
+          </td>
+
+        </tr>
+      </th:block>
+      </tbody>
+    </table>
+
+
+  </div>
+
+</div>
+
+</body>
